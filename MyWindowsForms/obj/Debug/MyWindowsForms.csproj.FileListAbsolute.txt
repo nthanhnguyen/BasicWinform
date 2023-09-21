@@ -1,0 +1,11 @@
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\MyWindowsForms.exe.config
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\MyWindowsForms.exe
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\MyWindowsForms.pdb
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.csproj.AssemblyReference.cache
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.Properties.Resources.resources
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.csproj.GenerateResource.cache
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.csproj.CoreCompileInputs.cache
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.exe
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.pdb
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.EditUsers.resources
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.MainForm.resources
