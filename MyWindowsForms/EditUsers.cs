@@ -46,9 +46,24 @@ namespace MyWindowsForms
             btnNext.Enabled = false;
         }
 
+        public void HideSaveButton()
+        {
+            btnSave.Enabled = false;
+        }
+
         public EditUsers()
         {
             InitializeComponent();
+        }
+
+        public void LockAll()
+        {
+            txtId.Enabled = false;
+            txtName.Enabled = false;
+            txtPassword.Enabled = false;
+            txtConfirmPassword.Enabled = false;
+            txtEmail.Enabled = false;
+            txtTel.Enabled = false;
         }
 
 
@@ -63,7 +78,7 @@ namespace MyWindowsForms
 
             if (ConfirmPassword != Password)
             {
-                MessageBox.Show("Confirm password is incorrect!", "Sign Up error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Xác nhận mật khẩu không đúng!", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Không thực hiện thêm nếu xác nhận mật khẩu không đúng
             }
 
@@ -76,48 +91,48 @@ namespace MyWindowsForms
                 Disable = 1;
             }
 
-            // Thực hiện thêm User
-            if (user.insertUser(UserId, Username, Password, Email, Tel, Disable))
+
+            if (user.checkEmpty(UserId, Username))
             {
-                MessageBox.Show("New User Added", "Add User", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    if (user.checkUserEmail(Email))
+                    {
+                        MessageBox.Show("Email người dùng không hợp lệ!", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else if (isUserIdLocked)
+                    {
+                        if (user.editUser(UserId, Username, Password, Email, Tel, Disable))
+                        {
+                            MessageBox.Show("Đã sửa thông tin thành công", "Sửa thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else if (user.checkUserExists(UserId))
+                    {
+                        MessageBox.Show("Mã người dùng đã tồn tại. Vui lòng chọn mã người dùng khác.", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // Không thực hiện thêm hoặc sửa nếu mã người dùng đã tồn tại
+                    }
+                    else if (user.insertUser(UserId, Username, Password, Email, Tel, Disable))
+                    {
+                        MessageBox.Show("Đã thêm người dùng thành công", "Thêm người dùng", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Sau khi lưu thành công, làm cho nút btnSave trở thành mờ đi
-                btnSave.Enabled = false;
+                        // Sau khi lưu thành công, làm cho nút btnSave trở thành mờ đi
+                        btnSave.Enabled = false;
 
-                // Hiện nút "Nhập tiếp"
-                btnNext.Enabled = true;
-
+                        // Hiện nút "Nhập tiếp"
+                        btnNext.Enabled = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
-
-
-            if (isUserIdLocked)
+            else
             {
-/*                UserId = txtId.Text;
-                Username = txtName.Text;
-                Password = txtPassword.Text;
-                ConfirmPassword = txtConfirmPassword.Text;
-                if (ConfirmPassword != Password)
-                {
-                    MessageBox.Show("Confirm password is incorrect!", "Sign Up error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return; // Không thực hiện thêm nếu xác nhận mật khẩu không đúng
-                }
-                Email = txtEmail.Text;
-                Tel = txtTel.Text;
-                Disable = 0;
-                if (checkDisplay.Checked)
-                {
-                    Disable = 1;
-                }*/
-                // Thực hiện thêm User
-                if (user.editUser(UserId, Username, Password, Email, Tel, Disable))
-                {
-                    MessageBox.Show("Edit succesfully", "Edit User", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-
+                MessageBox.Show("Không được để trống Mã nhân viên hay Tên nhân viên.", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-
         }
 
         private void btnClose_Click(object sender, EventArgs e)

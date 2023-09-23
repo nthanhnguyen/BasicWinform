@@ -102,13 +102,64 @@ namespace MyWindowsForms
 
                 // Khóa mã người dùng
                 editUsers.LockUserId();
-
-                // Xử lý sự kiện để cập nhật thông tin sau khi chỉnh sửa xong
-                //editUsers.UserUpdated += (s, args) => {
-                //    // Cập nhật lại DataGridView
-                //    fillGrid();
-                //};
             }
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra xem có người dùng nào được chọn trong DataGridView chưa
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Lấy thông tin người dùng được chọn
+                string userId = dataGridView1.SelectedRows[0].Cells["UserID"].Value.ToString();
+                string username = dataGridView1.SelectedRows[0].Cells["UserName"].Value.ToString();
+                string password = dataGridView1.SelectedRows[0].Cells["Password"].Value.ToString();
+                string email = dataGridView1.SelectedRows[0].Cells["Email"].Value.ToString();
+                string tel = dataGridView1.SelectedRows[0].Cells["Tel"].Value.ToString();
+                bool disable = (bool)dataGridView1.SelectedRows[0].Cells["Không hiển thị"].Value;
+
+                // Tạo một instance của EditUsers và truyền thông tin người dùng
+                EditUsers editUsers = new EditUsers(userId, username, password, email, tel, disable);
+                editUsers.Show();
+
+                // Ẩn nút "Nhập tiếp"
+                editUsers.HideNextButton();
+
+                // Ẩn nút "Lưu"
+                editUsers.HideSaveButton();
+
+                editUsers.LockAll();
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string userId = dataGridView1.SelectedRows[0].Cells["UserID"].Value.ToString();
+            DialogResult dg = MessageBox.Show("Bạn muốn xáo User này?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dg == DialogResult.Yes)
+            {
+                try
+                {
+                    if (user.deleteUser(userId))
+                    {
+                        MessageBox.Show("Xóa thành công User", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        fillGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi!", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

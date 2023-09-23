@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MyWindowsForms
 {
@@ -69,13 +72,13 @@ namespace MyWindowsForms
 
         public bool editUser(string userid, string username, string password, string email, string tel, int disable)
         {
-            SqlCommand command = new SqlCommand("UPDATE user SET  UserName=@username, Password=@password, Email=@email, Tel=@tel, Disable=@disable WHERE UserID = @id", mydb.getConnection);
-            command.Parameters.Add("@id", SqlDbType.Int).Value = userid;
-            command.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
-            command.Parameters.Add("@email", SqlDbType.DateTime).Value = email;
-            command.Parameters.Add("@tel", SqlDbType.VarChar).Value = tel;
-            command.Parameters.Add("@disable", SqlDbType.VarChar).Value = disable;
+            SqlCommand command = new SqlCommand("UPDATE [user] SET  UserName=@username, Password=@password, Email=@email, Tel=@tel, Disable=@disable WHERE UserID = @id", mydb.getConnection);
+            command.Parameters.Add("@id", SqlDbType.NVarChar).Value = userid;
+            command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
+            command.Parameters.Add("@password", SqlDbType.NVarChar).Value = password;
+            command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+            command.Parameters.Add("@tel", SqlDbType.NVarChar).Value = tel;
+            command.Parameters.Add("@disable", SqlDbType.Int).Value = disable;
 
             mydb.openConnection();
             if ((command.ExecuteNonQuery() == 1))
@@ -91,8 +94,83 @@ namespace MyWindowsForms
         }
 
 
+        public bool checkUserExists(string UserId)
+        {
+            SqlCommand command = new SqlCommand("CheckUserExists", mydb.getConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            // Thêm tham số đầu vào cho stored procedure
+            command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.NVarChar, 50));
+            command.Parameters["@UserID"].Value = UserId;
+            mydb.openConnection();
+
+            try
+            {
+                command.ExecuteNonQuery();
+                // Nếu không có lỗi, mã người dùng hợp lệ
+                return false;
+            }
+            catch (SqlException ex)
+            {
+                // Xử lý lỗi trả về từ stored procedure
+                return true;
+            }
+            finally
+            {
+                mydb.closeConnection();
+            }
+        }
+
+        public bool checkEmpty(string UserId, string UserName) 
+        {
+            if (UserId.Trim() == ""
+               || UserName.Trim() == "")
+            {
+                return false;
+            }
+            else 
+                return true;
+        }
+
+        public bool checkUserEmail(string Email)
+        {
+            SqlCommand command = new SqlCommand("CheckValidEmail", mydb.getConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            // Thêm tham số đầu vào cho stored procedure
+            command.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 50));
+            command.Parameters["@Email"].Value = Email;
+            mydb.openConnection();
+            try
+            {
+                command.ExecuteNonQuery();
+                return false;
+            }
+            catch (SqlException ex)
+            {
+                return true;
+            }
+            finally
+            {
+                mydb.closeConnection();
+            }
+        }
 
 
+        public bool deleteUser(string userid)
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM [user] WHERE UserID = @id", mydb.getConnection);
+            command.Parameters.Add("@id", SqlDbType.NVarChar).Value = userid;
 
+            mydb.openConnection();
+            if ((command.ExecuteNonQuery() == 1))
+            {
+                mydb.closeConnection();
+                return true;
+            }
+            else
+            {
+                mydb.closeConnection();
+                return false;
+            }
+        }
     }
 }

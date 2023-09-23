@@ -92,7 +92,7 @@
             this.btnView,
             this.btnDelete});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 128);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(169, 100);
             // 
             // btnAdd
             // 
@@ -116,6 +116,7 @@
             this.btnView.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.btnView.Size = new System.Drawing.Size(210, 24);
             this.btnView.Text = "Xem";
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btnDelete
             // 
@@ -123,6 +124,7 @@
             this.btnDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
             this.btnDelete.Size = new System.Drawing.Size(210, 24);
             this.btnDelete.Text = "Xóa";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // button3
             // 
@@ -132,6 +134,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "Đóng";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btnRefresh
             // 
