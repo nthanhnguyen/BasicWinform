@@ -25,7 +25,7 @@ namespace MyWindowsForms
             fillGrid();
         }
 
-        public void fillGrid()
+        private void fillGrid()
         {
             // Thực hiện truy vấn SQL và lấy dữ liệu từ bảng Users
             SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [user]");
@@ -72,6 +72,7 @@ namespace MyWindowsForms
         private void btnAdd_Click(object sender, EventArgs e)
         {
             EditUsers editUsers = new EditUsers();
+            this.Hide();
             editUsers.Show();
         }
 
@@ -95,6 +96,7 @@ namespace MyWindowsForms
 
                 // Tạo một instance của EditUsers và truyền thông tin người dùng
                 EditUsers editUsers = new EditUsers(userId, username, password, email, tel, disable);
+                this.Hide();
                 editUsers.Show();
 
                 // Ẩn nút "Nhập tiếp"
@@ -120,6 +122,7 @@ namespace MyWindowsForms
 
                 // Tạo một instance của EditUsers và truyền thông tin người dùng
                 EditUsers editUsers = new EditUsers(userId, username, password, email, tel, disable);
+                this.Hide();
                 editUsers.Show();
 
                 // Ẩn nút "Nhập tiếp"
@@ -157,7 +160,7 @@ namespace MyWindowsForms
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }

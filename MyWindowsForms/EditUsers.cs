@@ -137,7 +137,10 @@ namespace MyWindowsForms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            MainForm mainform = new MainForm();
             this.Close();
+            mainform.Show();
+            
         }
 
         private void btnNext_Click(object sender, EventArgs e)
