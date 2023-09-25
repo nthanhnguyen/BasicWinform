@@ -21,10 +21,23 @@ namespace MyWindowsForms
         public string Tel { get; set; }
         public int Disable { get; set; }
 
-        public User()   //Tạo student rỗng để chạy không lỗi với khởi tạo User để add vào List
-        {
 
+        /// <summary>
+        ///         //Tạo student rỗng để chạy không lỗi với khởi tạo User để add vào List.
+        /// </summary>
+        public User()   
+        {
         }
+
+        /// <summary>
+        /// Khởi tạo một đối tượng User với các thông tin cơ bản.
+        /// </summary>
+        /// <param name="userid">Mã người dùng.</param>
+        /// <param name="username">Tên người dùng.</param>
+        /// <param name="password">Mật khẩu.</param>
+        /// <param name="email">Địa chỉ email.</param>
+        /// <param name="tel">Số điện thoại.</param>
+        /// <param name="disable">Trạng thái vô hiệu hóa.</param>
         public User(string userid, string username, string password, string email, string tel, int disable)
         {
             this.UserId = userid;
@@ -34,8 +47,12 @@ namespace MyWindowsForms
             this.Tel = tel;
             this.Disable = disable;
         }
+
         MyDB mydb = new MyDB();
 
+        /// <summary>
+        /// Lấy tất cả người dùng từ cơ sở dữ liệu và trả về một DataTable.
+        /// </summary>
         public DataTable GetAllUsers(SqlCommand command)
         {
             command.Connection = mydb.getConnection;
@@ -45,6 +62,10 @@ namespace MyWindowsForms
             return table;
         }
 
+
+        /// <summary>
+        /// Lấy tất cả người dùng từ cơ sở dữ liệu và trả về một DataTable.
+        /// </summary>
         public bool insertUser(string userid, string username, string password, string email, string tel, int disable)
         {
             SqlCommand command = new SqlCommand("INSERT INTO [user] (UserID, UserName, Password, Email, Tel, Disable)" +
@@ -70,6 +91,9 @@ namespace MyWindowsForms
             }
         }
 
+        /// <summary>
+        /// Chỉnh sửa thông tin của một người dùng trong cơ sở dữ liệu.
+        /// </summary>
         public bool editUser(string userid, string username, string password, string email, string tel, int disable)
         {
             SqlCommand command = new SqlCommand("UPDATE [user] SET  UserName=@username, Password=@password, Email=@email, Tel=@tel, Disable=@disable WHERE UserID = @id", mydb.getConnection);
@@ -93,7 +117,9 @@ namespace MyWindowsForms
             }
         }
 
-
+        /// <summary>
+        /// Kiểm tra sự tồn tại của một người dùng trong cơ sở dữ liệu.
+        /// </summary>
         public bool checkUserExists(string UserId)
         {
             SqlCommand command = new SqlCommand("CheckUserExists", mydb.getConnection);
@@ -120,6 +146,9 @@ namespace MyWindowsForms
             }
         }
 
+        /// <summary>
+        /// Kiểm tra xem các thông tin cơ sở của người dùng có bị thiếu hay không.
+        /// </summary>
         public bool checkEmpty(string UserId, string UserName) 
         {
             if (UserId.Trim() == ""
@@ -131,6 +160,9 @@ namespace MyWindowsForms
                 return true;
         }
 
+        /// <summary>
+        /// Kiểm tra tính hợp lệ của địa chỉ email của người dùng.
+        /// </summary>
         public bool checkUserEmail(string Email)
         {
             SqlCommand command = new SqlCommand("CheckValidEmail", mydb.getConnection);
@@ -154,7 +186,9 @@ namespace MyWindowsForms
             }
         }
 
-
+        /// <summary>
+        /// Xóa một người dùng khỏi cơ sở dữ liệu.
+        /// </summary>
         public bool deleteUser(string userid)
         {
             SqlCommand command = new SqlCommand("DELETE FROM [user] WHERE UserID = @id", mydb.getConnection);
