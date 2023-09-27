@@ -117,7 +117,7 @@ namespace DAL
         /// </summary>
         /// <param name="userid">ID người dùng cần kiểm tra.</param>
         /// <returns>Trả về true nếu người dùng tồn tại; ngược lại, trả về false.</returns>
-        public bool checkcheckUserExists(string userid)
+        public bool CheckUserExists(string userid)
         {
             string query = "EXECUTE [dbo].[CheckUserExists] UserID = @userid";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { userid }) > 0;
@@ -128,7 +128,7 @@ namespace DAL
         /// </summary>
         /// <param name="email">Địa chỉ email cần kiểm tra.</param>
         /// <returns>Trả về true nếu địa chỉ email hợp lệ; ngược lại, trả về false.</returns>
-        public bool checkEmail(string email)
+        public bool CheckEmail(string email)
         {
             string query = "EXECUTE [dbo].[CheckValidEmail] Email = @email";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { email }) > 0;

@@ -86,108 +86,125 @@ namespace BUS
             dataGridView.Columns["Tel"].HeaderText = "Số điện thoại";
             dataGridView.Columns["Disable"].Visible = false;
             dataGridView.Columns["Không hiển thị"].HeaderText = "Không hiển thị";
-        }
-
-        /// <summary>
-        /// Xóa người dùng được chọn từ DataGridView.
-        /// </summary>
-        /// <param name="dataGridView">DataGridView chứa danh sách người dùng.</param>
-        /// <returns>Trả về true nếu xóa thành công; ngược lại, trả về false.</returns>
-        public bool DeleteUser(DataGridView dataGridView)
-        {
-            string userId = dataGridView.SelectedRows[0].Cells["UserID"].Value.ToString();
-
-            if (UserDAL.Instance.deleteUser(userId))
-            {
-                return true;
             }
-            else
+
+            /// <summary>
+            /// Xóa người dùng được chọn từ DataGridView.
+            /// </summary>
+            /// <param name="dataGridView">DataGridView chứa danh sách người dùng.</param>
+            /// <returns>Trả về true nếu xóa thành công; ngược lại, trả về false.</returns>
+            public bool DeleteUser(DataGridView dataGridView)
             {
+                string userId = dataGridView.SelectedRows[0].Cells["UserID"].Value.ToString();
+
+                if (UserDAL.Instance.deleteUser(userId))
+                {
+                    return true;
+                }
+                else
+                {
                 return false;
+                }
             }
-        }
 
-        /// <summary>
-        /// Chèn người dùng mới vào cơ sở dữ liệu.
-        /// </summary>
-        /// <param name="userid">ID người dùng.</param>
-        /// <param name="username">Tên người dùng.</param>
-        /// <param name="password">Mật khẩu.</param>
-        /// <param name="email">Địa chỉ email.</param>
-        /// <param name="tel">Số điện thoại.</param>
-        /// <param name="disable">Trạng thái vô hiệu hóa.</param>
-        /// <returns>Trả về true nếu chèn thành công; ngược lại, trả về false.</returns>
-        public bool InsertUser(string userid, string username, string password, string email, string tel, int disable)
-        {
-            if (UserDAL.Instance.insertUser(userid, username, password, email, tel, disable))
+            /// <summary>
+            /// Chèn người dùng mới vào cơ sở dữ liệu.
+            /// </summary>
+            /// <param name="userid">ID người dùng.</param>
+            /// <param name="username">Tên người dùng.</param>
+            /// <param name="password">Mật khẩu.</param>
+            /// <param name="email">Địa chỉ email.</param>
+            /// <param name="tel">Số điện thoại.</param>
+            /// <param name="disable">Trạng thái vô hiệu hóa.</param>
+            /// <returns>Trả về true nếu chèn thành công; ngược lại, trả về false.</returns>
+            public bool InsertUser(string userid, string username, string password, string email, string tel, int disable)
             {
-                return true;
+                if (UserDAL.Instance.insertUser(userid, username, password, email, tel, disable))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
-        }
 
-        /// <summary>
-        /// Sửa thông tin người dùng.
-        /// </summary>
-        /// <param name="userid">ID người dùng.</param>
-        /// <param name="username">Tên người dùng mới.</param>
-        /// <param name="password">Mật khẩu mới.</param>
-        /// <param name="email">Địa chỉ email mới.</param>
-        /// <param name="tel">Số điện thoại mới.</param>
-        /// <param name="disable">Trạng thái vô hiệu hóa mới.</param>
-        /// <returns>Trả về true nếu sửa thông tin thành công; ngược lại, trả về false.</returns>
-        public bool EditUser(string userid, string username, string password, string email, string tel, int disable)
-        {
-            if (UserDAL.Instance.editUser(userid, username, password, email, tel, disable))
+            /// <summary>
+            /// Sửa thông tin người dùng.
+            /// </summary>
+            /// <param name="userid">ID người dùng.</param>
+            /// <param name="username">Tên người dùng mới.</param>
+            /// <param name="password">Mật khẩu mới.</param>
+            /// <param name="email">Địa chỉ email mới.</param>
+            /// <param name="tel">Số điện thoại mới.</param>
+            /// <param name="disable">Trạng thái vô hiệu hóa mới.</param>
+            /// <returns>Trả về true nếu sửa thông tin thành công; ngược lại, trả về false.</returns>
+            public bool EditUser(string userid, string username, string password, string email, string tel, int disable)
             {
-                return true;
+                if (UserDAL.Instance.editUser(userid, username, password, email, tel, disable))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
-        }
 
-        /// <summary>
-        /// Kiểm tra xem các trường dữ liệu cần thiết có rỗng hay không.
-        /// </summary>
-        /// <param name="UserId">ID người dùng.</param>
-        /// <param name="UserName">Tên người dùng.</param>
-        /// <returns>Trả về true nếu không có trường nào rỗng; ngược lại, trả về false.</returns>
-        public bool CheckEmpty(string UserId, string UserName)
-        {
-            if (UserId.Trim() == ""
-               || UserName.Trim() == "")
+            /// <summary>
+            /// Kiểm tra xem các trường dữ liệu cần thiết có rỗng hay không.
+            /// </summary>
+            /// <param name="UserId">ID người dùng.</param>
+            /// <param name="UserName">Tên người dùng.</param>
+            /// <returns>Trả về true nếu không có trường nào rỗng; ngược lại, trả về false.</returns>
+            public bool CheckEmpty(string UserId, string UserName)
             {
-                return false;
+                if (UserId.Trim() == ""
+                   || UserName.Trim() == "")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return true;
-            }
-        }
 
-        /// <summary>
-        /// Kiểm tra tính hợp lệ của địa chỉ email.
-        /// </summary>
-        /// <param name="email">Địa chỉ email cần kiểm tra.</param>
-        /// <returns>Trả về true nếu địa chỉ email hợp lệ; ngược lại, trả về false.</returns>
-        public bool CheckEmail(string email)
-        {
-            if (UserDAL.Instance.checkEmail(email))
+            /// <summary>
+            /// Kiểm tra tính hợp lệ của địa chỉ email.
+            /// </summary>
+            /// <param name="email">Địa chỉ email cần kiểm tra.</param>
+            /// <returns>Trả về true nếu địa chỉ email hợp lệ; ngược lại, trả về false.</returns>
+            public bool CheckEmail(string email)
             {
-                return true;
+                if (UserDAL.Instance.CheckEmail(email))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
-        }
 
-        #endregion
+            /// <summary>
+            /// Kiểm tra sự tồn tại của người dùng theo ID.
+            /// </summary>
+            /// <param name="userid">ID người dùng cần kiểm tra.</param>
+            /// <returns>Trả về true nếu người dùng tồn tại; ngược lại, trả về false.</returns>
+            public bool CheckUserExists(string userid)
+            {
+                if (UserDAL.Instance.CheckUserExists(userid))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            #endregion
     }
 
 }
