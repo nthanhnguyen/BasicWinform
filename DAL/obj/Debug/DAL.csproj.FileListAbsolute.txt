@@ -1,0 +1,13 @@
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DAL.exe.config
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DAL.exe
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DAL.pdb
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DTO.exe
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DTO.pdb
+E:\Desktop\Internship\MyWindowsForms\DAL\bin\Debug\DTO.exe.config
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.Properties.Resources.resources
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.csproj.GenerateResource.cache
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.csproj.CopyComplete
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.exe
+E:\Desktop\Internship\MyWindowsForms\DAL\obj\Debug\DAL.pdb

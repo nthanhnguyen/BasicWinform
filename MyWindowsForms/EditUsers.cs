@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using System.Xml.Linq;
 using System.Data.SqlClient;
+using BUS;
 
 namespace MyWindowsForms
 {
@@ -69,8 +70,6 @@ namespace MyWindowsForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
-            User user = new User();
             string UserId = txtId.Text;
             string Username = txtName.Text;
             string Password = txtPassword.Text;
@@ -91,47 +90,23 @@ namespace MyWindowsForms
                 Disable = 1;
             }
 
-
-            if (user.checkEmpty(UserId, Username))
+            if (isUserIdLocked)
             {
-                try
+                if (UserBUS.Instance.EditUser(UserId, Username, Password, Email, Tel, Disable))
                 {
-                    if (user.checkUserEmail(Email))
-                    {
-                        MessageBox.Show("Email người dùng không hợp lệ!", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else if (isUserIdLocked)
-                    {
-                        if (user.editUser(UserId, Username, Password, Email, Tel, Disable))
-                        {
-                            MessageBox.Show("Đã sửa thông tin thành công", "Sửa thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    else if (user.checkUserExists(UserId))
-                    {
-                        MessageBox.Show("Mã người dùng đã tồn tại. Vui lòng chọn mã người dùng khác.", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return; // Không thực hiện thêm hoặc sửa nếu mã người dùng đã tồn tại
-                    }
-                    else if (user.insertUser(UserId, Username, Password, Email, Tel, Disable))
-                    {
-                        MessageBox.Show("Đã thêm người dùng thành công", "Thêm người dùng", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // Sau khi lưu thành công, làm cho nút btnSave trở thành mờ đi
-                        btnSave.Enabled = false;
-
-                        // Hiện nút "Nhập tiếp"
-                        btnNext.Enabled = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Đã sửa thông tin thành công", "Sửa thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else
+
+            else if (UserBUS.Instance.InsertUser(UserId, Username, Password, Email, Tel, Disable))
             {
-                MessageBox.Show("Không được để trống Mã nhân viên hay Tên nhân viên.", "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Đã thêm người dùng thành công", "Thêm người dùng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Sau khi lưu thành công, làm cho nút btnSave trở thành mờ đi
+                btnSave.Enabled = false;
+
+                // Hiện nút "Nhập tiếp"
+                btnNext.Enabled = true;
             }
         }
 

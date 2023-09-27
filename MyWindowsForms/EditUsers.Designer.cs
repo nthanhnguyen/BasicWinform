@@ -178,7 +178,7 @@
             // checkDisplay
             // 
             this.checkDisplay.AutoSize = true;
-            this.checkDisplay.Location = new System.Drawing.Point(194, 332);
+            this.checkDisplay.Location = new System.Drawing.Point(252, 337);
             this.checkDisplay.Name = "checkDisplay";
             this.checkDisplay.Size = new System.Drawing.Size(111, 20);
             this.checkDisplay.TabIndex = 3;

@@ -9,3 +9,10 @@ E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.exe
 E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.pdb
 E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.EditUsers.resources
 E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.MainForm.resources
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\BUS.exe
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\DAL.exe
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\BUS.pdb
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\BUS.exe.config
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\DAL.pdb
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\bin\Debug\DAL.exe.config
+E:\Desktop\Internship\MyWindowsForms\MyWindowsForms\obj\Debug\MyWindowsForms.csproj.CopyComplete

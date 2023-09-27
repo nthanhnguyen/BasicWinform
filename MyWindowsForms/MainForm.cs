@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using BUS;
 
 namespace MyWindowsForms
 {
@@ -18,56 +19,12 @@ namespace MyWindowsForms
             InitializeComponent();
         }
 
-        User user = new User();
+        //User user = new User();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            fillGrid();
+            UserBUS.Instance.FillGrid(dataGridView1);
         }
-
-        private void fillGrid()
-        {
-            // Thực hiện truy vấn SQL và lấy dữ liệu từ bảng Users
-            SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [user]");
-            DataTable dataTable = user.GetAllUsers(sqlCommand);
-
-            // Thêm cột số thứ tự vào DataTable
-            dataTable.Columns.Add("Số Thứ Tự", typeof(int));
-            int rowIndex = 1;
-            foreach (DataRow row in dataTable.Rows)
-            {
-                row["Số Thứ Tự"] = rowIndex;
-                rowIndex++;
-            }
-
-            // Thêm cột Disable là checkbox vào DataTable
-            dataTable.Columns.Add("Không hiển thị", typeof(bool));
-            foreach (DataRow row in dataTable.Rows)
-            {
-                object disabledValue = row["Disable"];
-                if (disabledValue != DBNull.Value && int.TryParse(disabledValue.ToString(), out int disabledIntValue))
-                {
-                    row["Không hiển thị"] = disabledIntValue == 1;
-                }
-                else
-                {
-                    row["Không hiển thị"] = false; // Hoặc bạn có thể đặt giá trị mặc định khác nếu cần
-                }
-            }
-
-            // Đặt DataGridView.DataSource bằng DataTable đã chỉnh sửa
-            dataGridView1.DataSource = dataTable;
-            dataGridView1.Columns["Số Thứ Tự"].DisplayIndex = 0;// Đặt lại tên hiển thị cho các cột
-            dataGridView1.Columns["UserID"].HeaderText = "Mã nhân viên";
-            dataGridView1.Columns["UserName"].HeaderText = "Tên nhân viên";
-            dataGridView1.Columns["Password"].Visible = false;
-            dataGridView1.Columns["Email"].HeaderText = "Email";
-            dataGridView1.Columns["Tel"].HeaderText = "Số điện thoại";
-            dataGridView1.Columns["Disable"].Visible = false;
-            dataGridView1.Columns["Không hiển thị"].HeaderText = "Không hiển thị";
-        }
-
-
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -78,7 +35,7 @@ namespace MyWindowsForms
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            fillGrid();
+            UserBUS.Instance.FillGrid(dataGridView1);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -137,27 +94,18 @@ namespace MyWindowsForms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string userId = dataGridView1.SelectedRows[0].Cells["UserID"].Value.ToString();
-            DialogResult dg = MessageBox.Show("Bạn muốn xáo User này?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dg == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("Bạn có muốn xoá loại nhân viên này không", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
             {
-                try
+                if (UserBUS.Instance.DeleteUser(dataGridView1))
                 {
-                    if (user.deleteUser(userId))
-                    {
-                        MessageBox.Show("Xóa thành công User", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        fillGrid();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lỗi!", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Xoá thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                else
+                    MessageBox.Show("Xoá thất bại, đã tồn tại nhân viên loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
+            UserBUS.Instance.FillGrid(dataGridView1);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
