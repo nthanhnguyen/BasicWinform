@@ -11,6 +11,7 @@ namespace DAL
 {
     class DataProvider
     {
+        #region Constructor
         SqlCommand command;
         SqlConnection getConnect;
         SqlDataAdapter adapter;
@@ -21,7 +22,6 @@ namespace DAL
         {
             getConnect = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WinFormDb;Integrated Security=True");
             getConnect.Open();
-
         }
         //closeConnect SQL
         private void closeConnectData()
@@ -29,6 +29,9 @@ namespace DAL
             getConnect.Close();
             getConnect.Dispose();
         }
+        #endregion
+
+        #region Public Methods
         //selectSQL
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
@@ -66,30 +69,11 @@ namespace DAL
 
             return data;
         }
+        #endregion
+
+        #region Private Methods
         private void AddParameter(string query, object[] parameter, SqlCommand command)
         {
-            /*            if (parameter != null)
-                        {
-                            string[] listParameter = query.Split(' ');
-                            int i = 0;
-                            foreach (string item in listParameter)
-                            {
-                                if (item.Contains("@"))
-                                {
-                                    if (i < parameter.Length) // Kiểm tra xem có đủ phần tử trong mảng parameter
-                                    {
-                                        command.Parameters.AddWithValue(item, parameter[i]);
-                                        ++i;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Xoá thất bại, đã tồn tại nhân viên loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        // Xử lý trường hợp mảng parameter không đủ phần tử
-                                        // Ví dụ: in ra thông báo lỗi hoặc xử lý khác tùy ý
-                                    }
-                                }
-                            }
-                        }*/
             if (parameter != null)
             {
                 string[] listParameter = query.Split(' ');
@@ -104,11 +88,15 @@ namespace DAL
                 }
             }
         }
+        #endregion
+
+        #region Properties
         public static DataProvider Instance
         {
             get { if (instance == null) instance = new DataProvider(); return instance; }
             private set => instance = value;
         }
+        #endregion
         private DataProvider() { }
     }
 }

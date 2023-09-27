@@ -16,17 +16,19 @@ namespace BUS
 {
     public class UserBUS
     {
+        #region Constructor
         private static UserBUS instance;
 
         /// <summary>
         /// Hàm tạo riêng tư để đảm bảo mô hình singleton.
         /// </summary>
         private UserBUS() { }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Lấy thể hiện của lớp UserBUS.
         /// </summary>
-        #region Public Methods
         public static UserBUS Instance
         {
             get
@@ -38,7 +40,9 @@ namespace BUS
                 return instance;
             }
         }
+        #endregion
 
+        #region Public Methods
         /// <summary>
         /// Điền dữ liệu vào DataGridView.
         /// </summary>

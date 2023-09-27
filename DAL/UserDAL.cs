@@ -16,17 +16,20 @@ namespace DAL
     /// </summary>
     public class UserDAL
     {
+        #region Constructor
         private static UserDAL instance;
 
         /// <summary>
         /// Hàm tạo riêng tư để đảm bảo mô hình singleton.
         /// </summary>
         private UserDAL() { }
+        #endregion
 
+
+        #region Properties
         /// <summary>
         /// Lấy thể hiện của lớp UserDAL.
         /// </summary>
-        #region Public Methods
         public static UserDAL Instance
         {
             get
@@ -38,7 +41,9 @@ namespace DAL
                 return instance;
             }
         }
+        #endregion
 
+        #region Public Methods
         /// <summary>
         /// Truy xuất tất cả người dùng từ cơ sở dữ liệu.
         /// </summary>
@@ -128,8 +133,8 @@ namespace DAL
             string query = "EXECUTE [dbo].[CheckValidEmail] Email = @email";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { email }) > 0;
         }
-
         #endregion
+
     }
 
 }
